@@ -24,6 +24,12 @@ class ChessBoard:
             print(' '.join(f'{move:2}' for move in row))
         print(f'\nTook {self.moves_tried} attempts to find this solution')
 
+    def print_empty_board(self):
+        # Print the board showing the movement space ('.' for empty squares)
+        for row in self.board:
+            print(' '.join(f'{cell:2}' if cell != 0 else ' 0' for cell in row))
+        print()
+
     def solve(self):
         # Start from top-left corner
         self.board[0][0] = 1
@@ -62,6 +68,9 @@ class ChessBoard:
 if __name__ == '__main__':
     # Create a 5x5 chess board
     game = ChessBoard(5)
+    # Show the empty movement space (5x5 board)
+    print("\n Empty board (knight's movement space):")
+    game.print_empty_board()
 
     # Try to solve it
     print("Looking for a Knight's Tour solution...")
