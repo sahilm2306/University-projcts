@@ -2,14 +2,12 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 import heapq
-import time
 
 
 # ---------------------------------------------------
 # Step 1: Let’s build a simple weighted graph
 # ---------------------------------------------------
 def create_sample_graph():
-    """Creates a sample connected graph with 7 nodes and weighted edges."""
     G = nx.Graph()
 
     edges = [
@@ -25,7 +23,7 @@ def create_sample_graph():
 
 
 # ---------------------------------------------------
-# 🎨 Helper: Draw the graph (with optional highlights)
+# next step Graph Drawing Function
 # ---------------------------------------------------
 def draw_graph(G, title="Graph", highlight_edges=None):
     """Draws the graph nicely with edge weights and optional highlights."""
@@ -62,10 +60,7 @@ def draw_graph(G, title="Graph", highlight_edges=None):
 # Step 2: Prim’s Algorithm in action
 # ---------------------------------------------------
 def prim_mst(G):
-    """
-    Runs Prim’s Algorithm to find the Minimum Spanning Tree (MST).
-    It also pauses between steps to visually show the process.
-    """
+
     start_node = list(G.nodes())[0]  # Start from the first node
     visited = {start_node}
     mst_edges = []
@@ -77,7 +72,7 @@ def prim_mst(G):
     ]
     heapq.heapify(edge_queue)
 
-    print(f"🌱 Starting Prim’s Algorithm from node '{start_node}'...\n")
+    print(f" Starting Prim’s Algorithm from node '{start_node}'...\n")
 
     while edge_queue and len(mst_edges) < len(G.nodes()) - 1:
         weight, frm, to = heapq.heappop(edge_queue)
@@ -89,12 +84,11 @@ def prim_mst(G):
         # Otherwise, we’ll take this edge
         visited.add(to)
         mst_edges.append((frm, to, weight))
-        print(f"✅ Added edge ({frm}, {to}) with weight {weight}")
+        print(f" Added edge ({frm}, {to}) with weight {weight}")
 
         # Show the step visually
         draw_graph(
             G, title=f"Step: Added edge ({frm}, {to})", highlight_edges=[(frm, to)])
-        time.sleep(1)
 
         # Look at the new node’s edges and add them to our priority queue
         for neighbor, data in G[to].items():
@@ -104,12 +98,12 @@ def prim_mst(G):
     # Build and return the MST as its own graph
     MST = nx.Graph()
     MST.add_weighted_edges_from(mst_edges)
-    print("\n🌳 All done! Here's the final MST.\n")
+    print("\n All done! Here's the final MST.\n")
     return MST
 
 
 # ---------------------------------------------------
-# 🚀 Step 3: Run the demo
+#  Step 3: Run the demo
 # ---------------------------------------------------
 def run_prim_demo():
     G = create_sample_graph()
@@ -117,13 +111,13 @@ def run_prim_demo():
     draw_graph(G, title="Original Graph")
 
     MST = prim_mst(G)
-    draw_graph(MST, title="🎯 Final Minimum Spanning Tree",
+    draw_graph(MST, title=" Final Minimum Spanning Tree",
                highlight_edges=MST.edges())
     return MST
 
 
 # ---------------------------------------------------
-# Bonus: Try it out on other example graphs
+# Additional Graphs for Testing
 # ---------------------------------------------------
 def create_graph_2():
     G = nx.Graph()
@@ -160,10 +154,10 @@ def test_three_graphs():
 
 
 # ---------------------------------------------------
-# 🏁 The program starts here
+#  Starting of the program
 # ---------------------------------------------------
 if __name__ == "__main__":
-    print("👋 Welcome to the Prim’s Algorithm Visualizer!\n")
-    print("You’ll see how the algorithm builds the MST, step by step.")
+    print(" Welcome to the Prims Algorithm !\n")
+    print("Now you will see how the algorithm builds the MST, step by step.")
     test_three_graphs()
-    print("\n✨ Thanks for watching! Hope you enjoyed the visualization.")
+    print("\n Thanks for watching! Hope you enjoyed the visualization.")
